@@ -275,10 +275,14 @@ module Rufus::RTM
 
       @task = task
 
-      @tags = if tags.is_a?(Array)
-        tags
-      else
-        tags['tag']
+      begin
+        if tags['tag'].is_a?(Array)
+          @tags = tags['tag']
+        else
+          @tags = [tags['tag']]
+        end
+      rescue
+        @tags = []
       end
     end
 
